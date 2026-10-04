@@ -1,0 +1,59 @@
+{
+  "model_name": "Random Forest Classifier",
+  "dataset_total_samples": 3500,
+  "train_samples": 2800,
+  "test_samples": 700,
+  "accuracy": 0.9971,
+  "precision": 0.9851,
+  "recall": 1.0,
+  "f1_score": 0.9925,
+  "confusion_matrix": [
+    [
+      566,
+      2
+    ],
+    [
+      0,
+      132
+    ]
+  ],
+  "feature_importance": {
+    "packet_loss_percent": 0.349,
+    "link_quality": 0.1965,
+    "bandwidth_mbps": 0.0949,
+    "connection_stability": 0.0773,
+    "signal_strength": 0.0676,
+    "latency_ms": 0.0554,
+    "energy_consumption": 0.0528,
+    "relative_velocity": 0.0334,
+    "distance_km": 0.0307,
+    "number_of_hops": 0.0158,
+    "satellite_load": 0.0111,
+    "queue_length": 0.0098,
+    "destination_encoded": 0.003,
+    "source_encoded": 0.0027
+  },
+  "features_list": [
+    "source_encoded",
+    "destination_encoded",
+    "distance_km",
+    "signal_strength",
+    "bandwidth_mbps",
+    "latency_ms",
+    "packet_loss_percent",
+    "energy_consumption",
+    "link_quality",
+    "satellite_load",
+    "queue_length",
+    "relative_velocity",
+    "connection_stability",
+    "number_of_hops"
+  ],
+  "hyperparameters": {
+    "n_estimators": 160,
+    "max_depth": 12,
+    "criterion": "gini",
+    "min_samples_split": 4,
+    "min_samples_leaf": 2
+  }
+}

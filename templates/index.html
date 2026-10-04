@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBITROUTE AI | AI-Based Dynamic Inter-Satellite Routing</title>
+    <meta name="description" content="OrbitRoute AI is a machine learning powered dynamic inter-satellite routing system optimizing delay, packet loss, and energy consumption in real-time LEO constellations.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Chart.js for ML Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Background Space FX -->
+    <div class="stars-bg"></div>
+    <div class="nebula-bg"></div>
+
+    <!-- Navigation Header -->
+    <header class="app-header">
+        <div class="header-brand">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3.6 9h16.8"></path>
+                    <path d="M3.6 15h16.8"></path>
+                    <path d="M12 3a15 15 0 0 0 0 18"></path>
+                    <path d="M12 3a15 15 0 0 1 0 18"></path>
+                </svg>
+                <span class="pulse-beacon"></span>
+            </div>
+            <div class="brand-text">
+                <h1>ORBITROUTE <span class="neon-accent">AI</span></h1>
+                <p class="tagline">AI-Based Dynamic Inter-Satellite Routing</p>
+            </div>
+        </div>
+
+        <nav class="nav-links">
+            <button class="nav-tab active" data-tab="overview">
+                <span class="icon">🛰️</span> Mission Control
+            </button>
+            <button class="nav-tab" data-tab="network">
+                <span class="icon">🌐</span> Satellite Constellation
+            </button>
+            <button class="nav-tab" data-tab="prediction">
+                <span class="icon">⚡</span> Route Predictor
+            </button>
+            <button class="nav-tab" data-tab="models">
+                <span class="icon">🧠</span> ML Performance
+            </button>
+            <button class="nav-tab" data-tab="rl">
+                <span class="icon">🎯</span> Q-Learning Lab
+            </button>
+            <button class="nav-tab" data-tab="benchmarks">
+                <span class="icon">📊</span> Comparisons
+            </button>
+            <button class="nav-tab" data-tab="dataset">
+                <span class="icon">💾</span> Dataset
+            </button>
+            <button class="nav-tab" data-tab="gnn">
+                <span class="icon">🔗</span> GNN Architecture
+            </button>
+            <button class="nav-tab" data-tab="about">
+                <span class="icon">📖</span> Viva & Architecture
+            </button>
+        </nav>
+
+        <div class="header-status">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span id="system-status-text">SYSTEM ONLINE</span>
+            </div>
+            <div class="epoch-badge">
+                EPOCH: <span id="header-epoch">001</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+
+        <!-- ================= TAB 1: OVERVIEW / MISSION CONTROL ================= -->
+        <section id="tab-overview" class="tab-content active">
+            <!-- Hero Banner -->
+            <div class="hero-banner glass-card">
+                <div class="hero-text">
+                    <div class="badge-pill">Autonomous LEO Mesh Optimization</div>
+                    <h2>Intelligent Routing for Dynamic Satellite Networks</h2>
+                    <p>
+                        OrbitRoute AI dynamically tracks orbital topology variations and employs 
+                        <strong>Supervised Random Forest</strong> and <strong>Reinforcement Q-Learning</strong> 
+                        to predict and establish the most energy-efficient, low-latency, and packet-loss resilient 
+                        Inter-Satellite Laser Links (ISL).
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" id="btn-hero-simulate">
+                            <span class="btn-icon">▶</span> Start Live Simulation
+                        </button>
+                        <button class="btn btn-secondary" id="btn-hero-predict">
+                            <span class="btn-icon">🎯</span> Predict Optimal Route
+                        </button>
+                        <button class="btn btn-outline" id="btn-hero-demo">
+                            <span class="btn-icon">⚡</span> Run Viva Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-telemetry-badge">
+                    <div class="telemetry-ring">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
+                            <circle class="ring-progress" cx="50" cy="50" r="42"></circle>
+                        </svg>
+                        <div class="ring-content">
+                            <span class="ring-value" id="hero-route-quality">96.8%</span>
+                            <span class="ring-label">ISL Efficiency</span>
+                        </div>
+                    </div>
+                    <div class="telemetry-subtext">Optimized Multi-Hop QoS</div>
+                </div>
+            </div>
+
+            <!-- Summary Telemetry Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card glass-card">
+                    <div class="card-icon" style="color: #00f0ff;">🛰️</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Total Satellites</span>
+                        <h3 class="metric-value" id="kpi-satellites">10 LEO</h3>
+                        <span class="metric-sub">Walker-Delta Constellation</span>
+                    </div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="card-icon" style="color: #7928ca;">📡</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Active ISL Links</span>
+                        <h3 class="metric-value" id="kpi-links">21 Active</h3>
+                        <span class="metric-sub">Laser Optical / Ka-Band</span>
+                    </div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="card-icon" style="color: #00ffaa;">⏱️</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Average Latency</span>
+                        <h3 class="metric-value" id="kpi-latency">42.5 ms</h3>
+                        <span class="metric-sub">Propagation + Queuing</span>
+                    </div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="card-icon" style="color: #ff0070;">📉</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Avg Packet Loss</span>
+                        <h3 class="metric-value" id="kpi-loss">0.78 %</h3>
+                        <span class="metric-sub">SNR & Buffer Guarded</span>
+                    </div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="card-icon" style="color: #ffaa00;">🔋</div>
+                    <div class="metric-info">
+                        <span class="metric-label">Energy Consumption</span>
+                        <h3 class="metric-value" id="kpi-energy">3.42 J</h3>
+                        <span class="metric-sub">Per Megabit Transceived</span>
+                    </div>
+                </div>
+
+                <div class="metric-card glass-card">
+                    <div class="card-icon" style="color: #38bdf8;">🧠</div>
+                    <div class="metric-info">
+                        <span class="metric-label">ML Model Accuracy</span>
+                        <h3 class="metric-value" id="kpi-model-acc">99.7 %</h3>
+                        <span class="metric-sub">Random Forest Test Split</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Topology Quick View & Current Optimal Route Banner -->
+            <div class="dashboard-split">
+                <div class="glass-card live-route-box">
+                    <div class="card-header">
+                        <h3><span class="icon">✨</span> Currently Selected Optimal Path</h3>
+                        <span class="live-pill" id="route-status-pill">ML OPTIMIZED</span>
+                    </div>
+                    <div class="route-display-strip" id="quick-route-strip">
+                        <div class="node-pill source">SAT-01</div>
+                        <div class="route-arrow">➔</div>
+                        <div class="node-pill intermediate">SAT-06</div>
+                        <div class="route-arrow">➔</div>
+                        <div class="node-pill destination">SAT-10</div>
+                    </div>
+                    <div class="route-stats-row">
+                        <div class="stat-item">
+                            <span class="stat-name">Predicted Delay:</span>
+                            <span class="stat-val" id="quick-delay">48.2 ms</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Packet Loss:</span>
+                            <span class="stat-val" id="quick-loss">0.42 %</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Energy Cost:</span>
+                            <span class="stat-val" id="quick-energy">2.8 J</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Hops:</span>
+                            <span class="stat-val" id="quick-hops">2</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-name">Routing Score:</span>
+                            <span class="stat-val highlight" id="quick-score">0.184</span>
+                        </div>
+                    </div>
+                    <div class="route-recommendation" id="quick-recommendation">
+                        "Optimal route selected based on minimum combined multi-objective cost."
+                    </div>
+                </div>
+
+                <!-- Simulation Notification Log -->
+                <div class="glass-card event-log-box">
+                    <div class="card-header">
+                        <h3><span class="icon">📡</span> Dynamic Constellation Telemetry Feed</h3>
+                        <button class="btn btn-sm btn-outline" id="btn-clear-logs">Clear</button>
+                    </div>
+                    <div class="log-entries" id="telemetry-log-entries">
+                        <div class="log-line info">
+                            <span class="log-time">[11:50:01]</span> Constellation Walker-Delta orbit loaded (10 satellites, 2 planes).
+                        </div>
+                        <div class="log-line success">
+                            <span class="log-time">[11:50:02]</span> Random Forest model loaded with 99.71% test accuracy.
+                        </div>
+                        <div class="log-line info">
+                            <span class="log-time">[11:50:03]</span> Q-Learning routing agent active (1500 episodes converged).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: SATELLITE NETWORK VISUALIZATION ================= -->
+        <section id="tab-network" class="tab-content">
+            <div class="network-view-layout">
+                <!-- Left Controls Panel -->
+                <div class="glass-card network-controls-panel">
+                    <div class="card-header">
+                        <h3><span class="icon">⚙️</span> Mission Control</h3>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="select-source-sat">Source Satellite:</label>
+                        <select id="select-source-sat" class="form-select">
+                            <option value="SAT-01" selected>SAT-01 (Plane A)</option>
+                            <option value="SAT-02">SAT-02 (Plane A)</option>
+                            <option value="SAT-03">SAT-03 (Plane A)</option>
+                            <option value="SAT-04">SAT-04 (Plane A)</option>
+                            <option value="SAT-05">SAT-05 (Plane A)</option>
+                            <option value="SAT-06">SAT-06 (Plane B)</option>
+                            <option value="SAT-07">SAT-07 (Plane B)</option>
+                            <option value="SAT-08">SAT-08 (Plane B)</option>
+                            <option value="SAT-09">SAT-09 (Plane B)</option>
+                            <option value="SAT-10">SAT-10 (Plane B)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="select-dest-sat">Destination Satellite:</label>
+                        <select id="select-dest-sat" class="form-select">
+                            <option value="SAT-01">SAT-01 (Plane A)</option>
+                            <option value="SAT-02">SAT-02 (Plane A)</option>
+                            <option value="SAT-03">SAT-03 (Plane A)</option>
+                            <option value="SAT-04">SAT-04 (Plane A)</option>
+                            <option value="SAT-05">SAT-05 (Plane A)</option>
+                            <option value="SAT-06">SAT-06 (Plane B)</option>
+                            <option value="SAT-07">SAT-07 (Plane B)</option>
+                            <option value="SAT-08">SAT-08 (Plane B)</option>
+                            <option value="SAT-09">SAT-09 (Plane B)</option>
+                            <option value="SAT-10" selected>SAT-10 (Plane B)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-buttons">
+                        <button class="btn btn-primary full-width" id="btn-find-optimal-route">
+                            <span class="btn-icon">⚡</span> Find Optimal Route
+                        </button>
+                        <button class="btn btn-secondary full-width" id="btn-advance-simulation">
+                            <span class="btn-icon">⏩</span> Advance Orbit (1 Epoch)
+                        </button>
+                        <button class="btn btn-outline full-width" id="btn-toggle-auto-orbit">
+                            <span class="btn-icon" id="auto-orbit-icon">▶</span> Auto-Orbit Simulation
+                        </button>
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="canvas-legend">
+                        <h4>Link Telemetry Legend</h4>
+                        <div class="legend-item"><span class="legend-color optimal"></span> Optimal ISL (< 50ms)</div>
+                        <div class="legend-item"><span class="legend-color high-latency"></span> High Latency (> 70ms)</div>
+                        <div class="legend-item"><span class="legend-color weak"></span> Weak / Lossy Link (> 2.5%)</div>
+                        <div class="legend-item"><span class="legend-color active-path"></span> Active ML Optimal Route</div>
+                    </div>
+
+                    <!-- Selected Satellite Telemetry Box -->
+                    <div class="selected-sat-card" id="selected-sat-telemetry">
+                        <h4>Node Inspector: <span id="inspect-sat-id">SAT-01</span></h4>
+                        <div class="sat-props-grid">
+                            <div>CPU Load: <strong id="inspect-sat-load">32%</strong></div>
+                            <div>Buffer Queue: <strong id="inspect-sat-queue">14 pkts</strong></div>
+                            <div>Battery: <strong id="inspect-sat-batt">96%</strong></div>
+                            <div>Altitude: <strong id="inspect-sat-alt">550 km</strong></div>
+                            <div>Velocity: <strong id="inspect-sat-vel">7.56 km/s</strong></div>
+                            <div>Plane: <strong id="inspect-sat-plane">Plane A</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Canvas Visualizer Card -->
+                <div class="glass-card canvas-card">
+                    <div class="canvas-header-bar">
+                        <div class="canvas-title">
+                            <h3><span class="icon">🪐</span> Real-Time LEO Orbital Constellation</h3>
+                            <span class="canvas-sub">Interactive Topology • Drag / Click Nodes to Inspect</span>
+                        </div>
+                        <div class="canvas-badges">
+                            <span class="badge badge-info" id="badge-topology-state">ORBIT STEADY</span>
+                            <span class="badge badge-accent" id="badge-active-algorithm">RANDOM FOREST AI</span>
+                        </div>
+                    </div>
+
+                    <div class="canvas-container">
+                        <canvas id="constellation-canvas" width="800" height="600"></canvas>
+                        <div class="canvas-overlay-notification" id="canvas-notification">
+                            Simulation Started
+                        </div>
+                    </div>
+
+                    <!-- Active Route Banner below canvas -->
+                    <div class="canvas-bottom-bar">
+                        <div class="active-path-label">Selected Path:</div>
+                        <div class="active-path-val" id="canvas-path-val">SAT-01 → SAT-06 → SAT-10</div>
+                        <div class="active-path-metrics" id="canvas-path-metrics">
+                            <span>Delay: <strong>48.2ms</strong></span>
+                            <span>Loss: <strong>0.42%</strong></span>
+                            <span>Cost: <strong>0.184</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Candidate Path Comparison Table -->
+            <div class="glass-card candidate-paths-section">
+                <div class="card-header">
+                    <h3><span class="icon">🔀</span> Candidate Multi-Hop Routes Evaluation</h3>
+                    <span class="subtext">Ranked by Machine Learning Composite Routing Cost</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="candidate-routes-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Candidate Route Path</th>
+                                <th>Hops</th>
+                                <th>Latency (ms)</th>
+                                <th>Packet Loss</th>
+                                <th>Energy (J)</th>
+                                <th>ML Quality Score</th>
+                                <th>Weighted Cost</th>
+                                <th>Viability Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidate-routes-tbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: ROUTE PREDICTION FORM ================= -->
+        <section id="tab-prediction" class="tab-content">
+            <div class="prediction-grid">
+                <!-- Input Form -->
+                <div class="glass-card prediction-form-card">
+                    <div class="card-header">
+                        <h3><span class="icon">🎛️</span> Route Viability Prediction Engine</h3>
+                        <button class="btn btn-sm btn-outline" id="btn-fill-sample-inputs">Load Preset Telemetry</button>
+                    </div>
+                    <p class="section-desc">
+                        Provide link-state parameters or multi-hop path metrics. 
+                        The trained <strong>Random Forest Classifier</strong> evaluates channel viability and 
+                        computes the multi-objective routing score.
+                    </p>
+
+                    <form id="prediction-form" class="pred-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pred-source">Source Satellite</label>
+                                <select id="pred-source" class="form-select">
+                                    <option value="SAT-01">SAT-01</option>
+                                    <option value="SAT-02">SAT-02</option>
+                                    <option value="SAT-03">SAT-03</option>
+                                    <option value="SAT-04">SAT-04</option>
+                                    <option value="SAT-05">SAT-05</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-destination">Destination Satellite</label>
+                                <select id="pred-destination" class="form-select">
+                                    <option value="SAT-10" selected>SAT-10</option>
+                                    <option value="SAT-09">SAT-09</option>
+                                    <option value="SAT-08">SAT-08</option>
+                                    <option value="SAT-07">SAT-07</option>
+                                    <option value="SAT-06">SAT-06</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pred-distance">Distance (km)</label>
+                                <input type="number" id="pred-distance" class="form-input" value="1850" min="500" max="6000" step="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-bandwidth">Bandwidth (Mbps)</label>
+                                <input type="number" id="pred-bandwidth" class="form-input" value="750" min="50" max="1500" step="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-latency">Latency (ms)</label>
+                                <input type="number" id="pred-latency" class="form-input" value="45.5" min="5" max="350" step="0.5">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pred-loss">Packet Loss (%)</label>
+                                <input type="number" id="pred-loss" class="form-input" value="0.65" min="0" max="25" step="0.05">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-energy">Energy Consumption (J)</label>
+                                <input type="number" id="pred-energy" class="form-input" value="2.8" min="0.5" max="20" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-signal">Signal Strength (dBm)</label>
+                                <input type="number" id="pred-signal" class="form-input" value="-52.0" min="-100" max="-20" step="0.5">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pred-load">Satellite Load (%)</label>
+                                <input type="number" id="pred-load" class="form-input" value="38" min="5" max="100" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-queue">Queue Length (pkts)</label>
+                                <input type="number" id="pred-queue" class="form-input" value="18" min="1" max="200" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-velocity">Relative Velocity (km/s)</label>
+                                <input type="number" id="pred-velocity" class="form-input" value="2.3" min="0.1" max="12" step="0.1">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pred-stability">Connection Stability (0 - 1)</label>
+                                <input type="number" id="pred-stability" class="form-input" value="0.91" min="0.05" max="1.0" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-quality">Link Quality Score (0 - 100)</label>
+                                <input type="number" id="pred-quality" class="form-input" value="84" min="0" max="100" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="pred-hops">Number of Hops</label>
+                                <input type="number" id="pred-hops" class="form-input" value="2" min="1" max="6" step="1">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg full-width" id="btn-submit-prediction">
+                            <span class="btn-icon">⚡</span> PREDICT ROUTE
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Prediction Results Display -->
+                <div class="glass-card prediction-result-card" id="prediction-result-panel">
+                    <div class="card-header">
+                        <h3><span class="icon">📊</span> Inference Output</h3>
+                        <span class="badge" id="pred-badge-status">READY</span>
+                    </div>
+
+                    <div class="prediction-status-hero">
+                        <div class="prob-circle">
+                            <span class="prob-number" id="res-optimal-prob">99.7%</span>
+                            <span class="prob-label">Optimal Probability</span>
+                        </div>
+                        <div class="status-summary">
+                            <h4 id="res-status-title">Route Highly Viable</h4>
+                            <p id="res-recommendation-text">
+                                System ready. Submit parameters to trigger Random Forest model inference.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pred-kpi-grid">
+                        <div class="kpi-mini">
+                            <span class="kpi-label">Predicted Delay</span>
+                            <span class="kpi-val" id="res-delay">45.5 ms</span>
+                        </div>
+                        <div class="kpi-mini">
+                            <span class="kpi-label">Packet Loss</span>
+                            <span class="kpi-val" id="res-loss">0.65 %</span>
+                        </div>
+                        <div class="kpi-mini">
+                            <span class="kpi-label">Energy</span>
+                            <span class="kpi-val" id="res-energy">2.8 J</span>
+                        </div>
+                        <div class="kpi-mini">
+                            <span class="kpi-label">Hops</span>
+                            <span class="kpi-val" id="res-hops">2</span>
+                        </div>
+                        <div class="kpi-mini">
+                            <span class="kpi-label">Routing Score</span>
+                            <span class="kpi-val highlight" id="res-score">0.142</span>
+                        </div>
+                        <div class="kpi-mini">
+                            <span class="kpi-label">Route Quality</span>
+                            <span class="kpi-val highlight" id="res-quality">85.8 / 100</span>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown Bar -->
+                    <div class="cost-breakdown-box">
+                        <h4>Weighted Cost Breakdown</h4>
+                        <div class="cost-equation">
+                            <code>Total Cost = 0.35×Delay + 0.30×Loss + 0.20×Energy + 0.15×Hops</code>
+                        </div>
+                        <div class="progress-stacked">
+                            <div class="prog-bar prog-delay" id="bar-delay" style="width: 35%;" title="Delay Penalty"></div>
+                            <div class="prog-bar prog-loss" id="bar-loss" style="width: 25%;" title="Loss Penalty"></div>
+                            <div class="prog-bar prog-energy" id="bar-energy" style="width: 20%;" title="Energy Penalty"></div>
+                            <div class="prog-bar prog-hops" id="bar-hops" style="width: 20%;" title="Hops Penalty"></div>
+                        </div>
+                        <div class="legend-stacked">
+                            <span><span class="dot prog-delay"></span> Delay (35%)</span>
+                            <span><span class="dot prog-loss"></span> Loss (30%)</span>
+                            <span><span class="dot prog-energy"></span> Energy (20%)</span>
+                            <span><span class="dot prog-hops"></span> Hops (15%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: ML MODEL PERFORMANCE ================= -->
+        <section id="tab-models" class="tab-content">
+            <div class="glass-card section-hero">
+                <div class="hero-header-content">
+                    <h2>Machine Learning Model Evaluation</h2>
+                    <p>
+                        Real metrics computed on the 20% holdout test dataset (700 samples). 
+                        Random Forest Classifier with 160 estimators evaluates link viability.
+                    </p>
+                </div>
+                <div class="model-kpi-row">
+                    <div class="perf-metric-badge">
+                        <span class="p-label">Accuracy</span>
+                        <span class="p-value" id="val-accuracy">99.71%</span>
+                    </div>
+                    <div class="perf-metric-badge">
+                        <span class="p-label">Precision</span>
+                        <span class="p-value" id="val-precision">98.51%</span>
+                    </div>
+                    <div class="perf-metric-badge">
+                        <span class="p-label">Recall</span>
+                        <span class="p-value" id="val-recall">100.00%</span>
+                    </div>
+                    <div class="perf-metric-badge">
+                        <span class="p-label">F1-Score</span>
+                        <span class="p-value" id="val-f1">99.25%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-charts-grid">
+                <!-- Confusion Matrix Card -->
+                <div class="glass-card chart-card">
+                    <div class="card-header">
+                        <h3><span class="icon">🔲</span> Confusion Matrix (Actual Test Data)</h3>
+                    </div>
+                    <div class="confusion-matrix-wrapper">
+                        <table class="confusion-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Pred: Sub-optimal (0)</th>
+                                    <th>Pred: Optimal (1)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Actual: Sub-optimal (0)</th>
+                                    <td class="cm-cell tn" id="cm-tn">566 (TN)</td>
+                                    <td class="cm-cell fp" id="cm-fp">2 (FP)</td>
+                                </tr>
+                                <tr>
+                                    <th>Actual: Optimal (1)</th>
+                                    <td class="cm-cell fn" id="cm-fn">0 (FN)</td>
+                                    <td class="cm-cell tp" id="cm-tp">132 (TP)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cm-explanation">
+                            <p><strong>0 False Negatives:</strong> The routing engine never misses an optimal route, preventing packet drops and maintaining ultra-high link availability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Importance Chart -->
+                <div class="glass-card chart-card">
+                    <div class="card-header">
+                        <h3><span class="icon">📈</span> Random Forest Feature Importance</h3>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="featureImportanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Architecture Matrix -->
+            <div class="glass-card table-card">
+                <div class="card-header">
+                    <h3><span class="icon">⚖️</span> OrbitRoute AI Multi-Model Matrix</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Model / Strategy</th>
+                                <th>Role</th>
+                                <th>Input Dimensionality</th>
+                                <th>Training Target</th>
+                                <th>Execution Speed</th>
+                                <th>Operational Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Random Forest Classifier</strong></td>
+                                <td>Primary Link & Route Viability Scorer</td>
+                                <td>14 Features (RF, Channel, Orbit)</td>
+                                <td>Multi-Objective Route Score & Viability</td>
+                                <td>~1.2 ms / inference</td>
+                                <td><span class="badge badge-success">Active Production</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q-Learning (Bellman RL)</strong></td>
+                                <td>Dynamic Adaptive Hop Exploration</td>
+                                <td>State (Node, Dest, Channel)</td>
+                                <td>Cumulative Path Reward Q(s, a)</td>
+                                <td>~0.8 ms / step</td>
+                                <td><span class="badge badge-success">Active Production</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Graph Neural Network (GNN/GAT)</strong></td>
+                                <td>Spatial Mesh Graph Convolutions</td>
+                                <td>5D Node + 5D Edge Tensors</td>
+                                <td>End-to-End Link Viability</td>
+                                <td>~4.5 ms / pass</td>
+                                <td><span class="badge badge-info">Architecture Prototype</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: REINFORCEMENT LEARNING LAB ================= -->
+        <section id="tab-rl" class="tab-content">
+            <div class="glass-card section-hero">
+                <h2>Q-Learning Reinforcement Routing Lab</h2>
+                <p>
+                    The RL agent dynamically navigates the satellite constellation graph. 
+                    At each hop, it balances delay, packet loss, energy consumption, and destination convergence.
+                </p>
+                <div class="rl-controls-row">
+                    <div class="form-group inline">
+                        <label for="rl-src">Source:</label>
+                        <select id="rl-src" class="form-select">
+                            <option value="SAT-01">SAT-01</option>
+                            <option value="SAT-02">SAT-02</option>
+                            <option value="SAT-03">SAT-03</option>
+                            <option value="SAT-04">SAT-04</option>
+                            <option value="SAT-05">SAT-05</option>
+                        </select>
+                    </div>
+                    <div class="form-group inline">
+                        <label for="rl-dst">Destination:</label>
+                        <select id="rl-dst" class="form-select">
+                            <option value="SAT-10" selected>SAT-10</option>
+                            <option value="SAT-09">SAT-09</option>
+                            <option value="SAT-08">SAT-08</option>
+                            <option value="SAT-07">SAT-07</option>
+                            <option value="SAT-06">SAT-06</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="btn-run-rl-trace">
+                        <span class="btn-icon">▶</span> Step-by-Step Policy Trace
+                    </button>
+                </div>
+            </div>
+
+            <div class="analytics-charts-grid">
+                <!-- RL Reward Chart -->
+                <div class="glass-card chart-card">
+                    <div class="card-header">
+                        <h3><span class="icon">📈</span> Episodic Average Reward Convergence</h3>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="rlRewardChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Bellman Equations Panel -->
+                <div class="glass-card chart-card">
+                    <div class="card-header">
+                        <h3><span class="icon">📐</span> Q-Learning Formulation & Reward Scheme</h3>
+                    </div>
+                    <div class="rl-math-box">
+                        <div class="math-eq">
+                            <strong>Bellman Equation:</strong><br>
+                            <code>Q(s, a) ← Q(s, a) + α [ R + γ max Q(s', a') - Q(s, a) ]</code>
+                        </div>
+                        <ul class="rl-rule-list">
+                            <li><strong>State (s):</strong> Current Satellite + Destination Target <code>(SAT_i, SAT_dst)</code></li>
+                            <li><strong>Action (a):</strong> Forward packet to adjacent neighbor satellite</li>
+                            <li><strong>Positive Reward (+120):</strong> Packet successfully delivered to destination</li>
+                            <li><strong>Penalties:</strong> <code>- (0.35·Delay + 0.30·Loss + 0.20·Energy + HopCost)</code></li>
+                            <li><strong>Loop Prevention (-45):</strong> Cycle detected in routing path</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RL Step-by-Step Transition Inspector Table -->
+            <div class="glass-card table-card">
+                <div class="card-header">
+                    <h3><span class="icon">🔍</span> Q-Learning Step-by-Step State-Action Transition Trace</h3>
+                    <span class="subtext" id="rl-trace-path-summary">Path: SAT-01 → SAT-06 → SAT-10</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="rl-transitions-table">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>State s</th>
+                                <th>Action a (Next Hop)</th>
+                                <th>Reward R</th>
+                                <th>Next State s'</th>
+                                <th>Learned Q-Value</th>
+                                <th>Link Delay</th>
+                                <th>Packet Loss</th>
+                                <th>Energy</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rl-transitions-tbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 6: COMPARISONS ================= -->
+        <section id="tab-benchmarks" class="tab-content">
+            <div class="glass-card section-hero">
+                <h2>Routing Algorithm Performance Comparison</h2>
+                <p>
+                    Benchmarked across 100 dynamic orbital iterations under continuous constellation movement, 
+                    buffer fluctuations, and Doppler shifts.
+                </p>
+            </div>
+
+            <!-- Comparison Cards Grid -->
+            <div class="comparison-cards-grid" id="comparison-cards-container">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Comparison Charts -->
+            <div class="analytics-charts-grid">
+                <div class="glass-card chart-card">
+                    <div class="card-header">
+                        <h3><span class="icon">📊</span> Latency & Energy Benchmark</h3>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="comparisonLatencyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card chart-card">
+                    <div class="card-header">
+                        <h3><span class="icon">📉</span> Packet Loss & Combined Routing Cost</h3>
+                    </div>
+                    <div class="chart-box">
+                        <canvas id="comparisonLossChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 7: DATASET EXPLORER ================= -->
+        <section id="tab-dataset" class="tab-content">
+            <div class="glass-card section-hero">
+                <div class="hero-header-content">
+                    <h2>OrbitRoute Satellite Telemetry Dataset</h2>
+                    <p>
+                        High-fidelity synthetic dataset (<code>orbitroute_dataset.csv</code>) modeling 
+                        free-space path loss, Doppler velocity, buffer queuing, and multi-objective routing score.
+                    </p>
+                </div>
+                <div class="hero-actions">
+                    <a href="/api/dataset/download" class="btn btn-primary" id="btn-download-csv">
+                        <span class="btn-icon">💾</span> Download CSV (orbitroute_dataset.csv)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dataset Stats Grid -->
+            <div class="metrics-grid">
+                <div class="metric-card glass-card">
+                    <div class="metric-info">
+                        <span class="metric-label">Total Samples</span>
+                        <h3 class="metric-value" id="ds-total-samples">3,500</h3>
+                        <span class="metric-sub">Generated LEO Telemetry</span>
+                    </div>
+                </div>
+                <div class="metric-card glass-card">
+                    <div class="metric-info">
+                        <span class="metric-label">Total Features</span>
+                        <h3 class="metric-value" id="ds-features">14 Cols</h3>
+                        <span class="metric-sub">Continuous & Categorical</span>
+                    </div>
+                </div>
+                <div class="metric-card glass-card">
+                    <div class="metric-info">
+                        <span class="metric-label">Training Set (80%)</span>
+                        <h3 class="metric-value" id="ds-train">2,800</h3>
+                        <span class="metric-sub">Stratified Train Split</span>
+                    </div>
+                </div>
+                <div class="metric-card glass-card">
+                    <div class="metric-info">
+                        <span class="metric-label">Testing Set (20%)</span>
+                        <h3 class="metric-value" id="ds-test">700</h3>
+                        <span class="metric-sub">Validation & Scoring</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dataset Table Preview -->
+            <div class="glass-card table-card">
+                <div class="card-header">
+                    <h3><span class="icon">📄</span> Dataset Records Preview (Top 50 Samples)</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="dataset-preview-table">
+                        <thead id="dataset-preview-thead">
+                            <!-- Populated dynamically via JS -->
+                        </thead>
+                        <tbody id="dataset-preview-tbody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 8: GNN ARCHITECTURE ================= -->
+        <section id="tab-gnn" class="tab-content">
+            <div class="glass-card section-hero">
+                <div class="hero-header-content">
+                    <div class="badge-pill">Advanced Research Module</div>
+                    <h2>Graph Neural Network (GNN) Formulation</h2>
+                    <p>
+                        Satellite constellations are naturally represented as dynamic graphs <code>G = (V, E)</code>. 
+                        This architectural module outlines the end-to-end Graph Attention Network (GAT) formulation 
+                        for orbital edge computing.
+                    </p>
+                </div>
+                <div class="status-badge-proto">
+                    <span class="badge badge-info">Transparent Conceptual Prototype</span>
+                </div>
+            </div>
+
+            <div class="analytics-charts-grid">
+                <!-- Node & Edge Tensors -->
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3><span class="icon">🌐</span> Graph Tensor Representation</h3>
+                    </div>
+                    <div class="gnn-details-box">
+                        <h4>Node Feature Matrix X ∈ ℝ<sup>10 × 5</sup></h4>
+                        <div class="tensor-tag-list">
+                            <span class="tensor-tag">CPU Load (0-100%)</span>
+                            <span class="tensor-tag">Queue Length (pkts)</span>
+                            <span class="tensor-tag">Battery State (%)</span>
+                            <span class="tensor-tag">Orbital Velocity (km/s)</span>
+                            <span class="tensor-tag">Altitude (km)</span>
+                        </div>
+
+                        <h4 style="margin-top: 1.5rem;">Edge Attribute Tensor E ∈ ℝ<sup>|E| × 5</sup></h4>
+                        <div class="tensor-tag-list">
+                            <span class="tensor-tag">Distance (km)</span>
+                            <span class="tensor-tag">Propagation Latency (ms)</span>
+                            <span class="tensor-tag">Packet Loss Rate (%)</span>
+                            <span class="tensor-tag">Bandwidth Capacity (Mbps)</span>
+                            <span class="tensor-tag">Laser Energy (J)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message Passing Equations -->
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3><span class="icon">⚡</span> Spatial Message Passing Equations</h3>
+                    </div>
+                    <div class="gnn-math-card">
+                        <p><strong>Graph Attention Layer (GATConv):</strong></p>
+                        <div class="math-block">
+                            <code>h<sub>v</sub><sup>(k+1)</sup> = σ ( W<sub>self</sub> h<sub>v</sub><sup>(k)</sup> + ∑<sub>u ∈ N(v)</sub> α<sub>uv</sub> W<sub>nbr</sub> [ h<sub>u</sub><sup>(k)</sup> ‖ e<sub>uv</sub> ] )</code>
+                        </div>
+                        <p><strong>Attention Coefficients (Dynamic Link Weighting):</strong></p>
+                        <div class="math-block">
+                            <code>α<sub>uv</sub> = softmax<sub>u</sub> ( LeakyReLU( a<sup>T</sup> [ W h<sub>u</sub> ‖ W h<sub>v</sub> ‖ e<sub>uv</sub> ] ) )</code>
+                        </div>
+                        <p class="gnn-footer-note">
+                            <strong>Note:</strong> Random Forest and Q-Learning are deployed as the active runtime models in OrbitRoute AI. 
+                            The GNN represents the next-generation distributed architectural roadmap.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 9: ABOUT & VIVA GUIDE ================= -->
+        <section id="tab-about" class="tab-content">
+            <div class="glass-card section-hero">
+                <h2>Project Architecture, Viva Guide & FAQs</h2>
+                <p>
+                    Comprehensive technical reference designed for project reviews, PBL evaluations, and final viva presentations.
+                </p>
+            </div>
+
+            <!-- Problem / Solution Cards -->
+            <div class="architecture-grid">
+                <div class="glass-card arch-card">
+                    <h3><span class="icon">🚨</span> The Problem</h3>
+                    <p>
+                        Low Earth Orbit (LEO) satellites travel at ~7.5 km/s, causing rapid topology changes, 
+                        intermittent line-of-sight occlusions, Doppler shifts, and buffer congestion. 
+                        Traditional static shortest-path routing (e.g. Dijkstra based on distance alone) 
+                        causes severe packet drops and excessive satellite power drain.
+                    </p>
+                </div>
+
+                <div class="glass-card arch-card">
+                    <h3><span class="icon">💡</span> OrbitRoute AI Solution</h3>
+                    <p>
+                        A hybrid intelligent routing framework that combines 
+                        <strong>Supervised Machine Learning (Random Forest)</strong> to score multi-objective link viability 
+                        and <strong>Reinforcement Learning (Q-Learning)</strong> for dynamic topology adaptation. 
+                        It continuously optimizes: 
+                        <code>0.35·Delay + 0.30·Loss + 0.20·Energy + 0.15·Hops</code>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Viva FAQ Accordion -->
+            <div class="glass-card viva-faq-section">
+                <div class="card-header">
+                    <h3><span class="icon">🎓</span> High-Yield Viva Questions & Answers</h3>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q1: Why is traditional Dijkstra insufficient for satellite networks?</h4>
+                    <p>
+                        <strong>Answer:</strong> Dijkstra minimizes a single additive metric (typically hop count or geographic distance). 
+                        In satellite networks, the shortest physical distance path often encounters congested router buffers, 
+                        high Doppler shifts, or depleted satellite batteries. OrbitRoute AI optimizes a composite multi-objective 
+                        cost function incorporating delay, packet loss, energy, and queue status.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q2: How does the Random Forest model determine route optimality?</h4>
+                    <p>
+                        <strong>Answer:</strong> The Random Forest Classifier is trained on 14 telemetry features. 
+                        It outputs a class probability <code>P(Optimal)</code> reflecting whether the link parameters 
+                        fall within the top 38th percentile of high-quality, stable communication channels.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q3: How does the Q-Learning agent prevent routing loops?</h4>
+                    <p>
+                        <strong>Answer:</strong> The state is defined as <code>(Current_Satellite, Destination_Satellite)</code>. 
+                        During path exploration, an active visited list tracks traversed nodes. 
+                        If the agent attempts to revisit an already traversed satellite, a severe negative reward (-45 penalty) 
+                        is applied, discouraging cycles via Bellman backpropagation.
+                    </p>
+                </div>
+
+                <div class="faq-item">
+                    <h4>Q4: How are satellite movements modeled in the simulation?</h4>
+                    <p>
+                        <strong>Answer:</strong> Satellites are initialized in two complementary orbital planes (Plane A and Plane B) 
+                        using Keplerian angular coordinates. In each simulation step, satellites advance along their orbits 
+                        at 7.56 km/s, recomputing Euclidean distances, free-space path loss, and dynamic queuing delays in real time.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <p><strong>ORBITROUTE AI</strong> • AI-Based Dynamic Inter-Satellite Routing</p>
+            <p class="footer-sub">Autonomous Constellation QoS Optimization • Powered by Random Forest & Q-Learning</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
